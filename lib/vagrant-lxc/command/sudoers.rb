@@ -60,6 +60,8 @@ module Vagrant
           sudoers = Tempfile.new('vagrant-lxc-sudoers').tap do |file|
             file.puts "# Automatically created by vagrant-lxc"
             file.puts "#{user} ALL=(root) NOPASSWD: #{command}"
+            file.puts "Defaults!#{command} umask_override"
+            file.puts "Defaults!#{command} umask = 0022"
           end
           sudoers.close
           sudoers.path
